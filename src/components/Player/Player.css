@@ -1,0 +1,38 @@
+.gallery {
+	/* visibility: hidden; */
+	margin-top: 50px;
+	width: 800px;
+	height: 480px;
+	border: 1px solid grey;
+	overflow: hidden;
+}
+
+img {
+	width: 800px;
+	height: 480px;
+	position: absolute;
+	opacity: 0;
+}
+
+.para {
+	position: absolute;
+	opacity: 0;
+	color: red;
+	font-size: 60px;
+	font-family: cursive;
+}
+
+button {
+	margin: 20px;
+}
+
+#myVideo{
+	width: 800px;
+	height: 480px;
+	position: absolute;
+	opacity: 0;
+}
+
+.para1{
+    bottom: 0;
+}
