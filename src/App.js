@@ -2,6 +2,8 @@ import React from 'react';
 import VideoPlayer from './components/VideoPlayer';
 import AnimationComponent from './components/Animation/AnimationComponent';
 import PlayerComponent from './components/Player/PlayerComponent';
+import AudioPlayer from './components/AudioPlayer/AudioPlayer';
+import AudioComponent from './components/AudioPlayer/AudioComponent';
 
 const App = () => {
   return (
@@ -10,6 +12,8 @@ const App = () => {
       {/* <VideoPlayer /> */}
       <PlayerComponent />
       {/* <AnimationComponent /> */}
+      {/* <AudioPlayer /> */}
+      {/* <AudioComponent /> */}
       
     </div>
   );
