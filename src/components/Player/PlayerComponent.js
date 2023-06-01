@@ -19,10 +19,13 @@ const PlayerComponent = () => {
     function init() {
         resetSettings();
         const video = document.getElementById('myVideo');
+        const video1 = document.getElementById('myVideo-1');
         video.play();
+        video1.play();
         let tl = gsap.timeline();
         gsap.set(".gallery", { visibility: 'visible' })
         setTween(tl.to('#myVideo', { opacity: 1, duration: 10 })
+            .to('#myVideo-1', { opacity: 1, duration: 15 }, '-=10')
             .to('.para1', { xPercent: 160, opacity: 1, duration: 6 }, '-=8')
             .to('.img-video', { opacity: 1, duration: 5, height: '200px', width: '400px', right: 0, ease: 'slow' }, '-=8')
             .to('.img-wrapper img', { opacity: 1, duration: 5, ease: 'slow' })
@@ -51,6 +54,8 @@ const PlayerComponent = () => {
             .add(() => {
                 document.getElementById('myVideo').pause();
                 document.getElementById('myVideo').currentTime = 0;
+                document.getElementById('myVideo-1').pause();
+                document.getElementById('myVideo-1').currentTime = 0;
             })
         );
 
@@ -62,12 +67,14 @@ const PlayerComponent = () => {
         if (!isPause) {
             tween.pause();
             document.getElementById('myVideo').pause();
+            document.getElementById('myVideo-1').pause();
             document.getElementById('0').pause();
             document.getElementById('1').pause();
             stopAudio();
         } else {
             tween.play();
             document.getElementById('myVideo').play();
+            document.getElementById('myVideo-1').play();
             document.getElementById('0').play();
             document.getElementById('1').play();
         }
@@ -107,7 +114,8 @@ const PlayerComponent = () => {
             tween.progress(0);
             tween.timeScale(1);
         }
-        document.getElementById('myVideo').play();
+        document.getElementById('myVideo').currentTime = 0;
+        document.getElementById('myVideo-1').currentTime = 0;
     }
 
     const playAudios = () => {
@@ -155,67 +163,58 @@ const PlayerComponent = () => {
         document.getElementById('1').volume = e.target.value;
     }
 
-    return (<>
-
-        <div className="gallery">
-            <video id='myVideo' src='https://www.w3schools.com/html/mov_bbb.mp4' autoPlay loop />
-            <p className='para para1'>Welcome!</p>
-            <img className='img-video' src='https://assets.codepen.io/32887/beach-gallery-lighthouse.jpg' />
-            <div className='img-wrapper'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-cabanas.jpg" />
-                <p className='para'>Hello There!</p>
+    return (
+        <>
+            <div className="gallery">
+                <video id='myVideo' className='myVideo' src='https://www.w3schools.com/html/mov_bbb.mp4' autoPlay loop />
+                <video id='myVideo-1' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' autoPlay loop />
+                <p className='para para1'>Welcome!</p>
+                <img className='img-video' src='https://assets.codepen.io/32887/beach-gallery-lighthouse.jpg' />
+                <div className='img-wrapper'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-cabanas.jpg" />
+                    <p className='para'>Hello There!</p>
+                </div>
+                <div className='img-wrapper1'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-cliffs-orange-glow.jpg" />
+                    <p className='para'>Second slide</p>
+                </div>
+                <div className='img-wrapper2'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-lookdown-green-hills.jpg" />
+                    <p className='para'>Third slide</p>
+                </div>
+                <div className='img-wrapper3'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-surf.jpg" />
+                    <p className='para'>Fourth slide</p>
+                </div>
+                <div className='img-wrapper4'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-bent-palm.jpg" />
+                    <p className='para'>Fifth slide</p>
+                </div>
+                <div className='img-wrapper5'>
+                    <img src="https://assets.codepen.io/32887/beach-gallery-palm-sunset.jpg" />
+                    <p className='para'>Thankyou for watching!</p>
+                </div>
             </div>
-            <div className='img-wrapper1'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-cliffs-orange-glow.jpg" />
-                <p className='para'>Second slide</p>
+            <button onClick={() => { init(); playAudios(); }}>Start Video</button>
+            {tween && <>
+                <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
+                <button onClick={() => tween.reverse()}>Reverse</button>
+                <button onClick={fastForward}>Forward {speed}x {speed > 1 && '>>'}</button>
+                <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button>
+                <button onClick={resetSettings}>Reset</button>
+            </>}
+            <h3 style={{ color: 'white' }}>Audio Section:</h3>
+            <div id='audios'>
+                <h4 style={{ color: 'white' }}>Volume 1:</h4>
+                <input id="slide" type="range" min="0" max="1" step="0.1" value={volume}
+                    onChange={changeVolume}></input>
+                <h4 style={{ color: 'white' }}>Volume 2:</h4>
+                <input id="slide" type="range" min="0" max="1" step="0.1" value={volume2}
+                    onChange={changeVolume2}></input>
+                <button onClick={playAudios}>Play Audio</button>
+                <button onClick={stopAudio}>Pause Audio</button>
             </div>
-            <div className='img-wrapper2'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-lookdown-green-hills.jpg" />
-                <p className='para'>Third slide</p>
-            </div>
-            <div className='img-wrapper3'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-surf.jpg" />
-                <p className='para'>Fourth slide</p>
-            </div>
-            <div className='img-wrapper4'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-bent-palm.jpg" />
-                <p className='para'>Fifth slide</p>
-            </div>
-            <div className='img-wrapper5'>
-                <img src="https://assets.codepen.io/32887/beach-gallery-palm-sunset.jpg" />
-                <p className='para'>Thankyou for watching!</p>
-            </div>
-        </div>
-        <button onClick={() => { init(); playAudios(); }}>Start Video</button>
-
-        {tween && <>
-            <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
-            <button onClick={() => tween.reverse()}>Reverse</button>
-            <button onClick={fastForward}>Forward {speed}x {speed > 1 && '>>'}</button>
-            <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button>
-            <button onClick={resetSettings}>Reset</button>
-
-            {/* <h4 style={{ color: 'white' }}>Volume 1:</h4>
-            <input id="slide" type="range" min="0" max="1" step="0.1" value={volume}
-                onChange={changeVolume}></input>
-            <h4 style={{ color: 'white' }}>Volume 2:</h4>
-            <input id="slide" type="range" min="0" max="1" step="0.1" value={volume2}
-                onChange={changeVolume2}></input>
-            <button onClick={playAudios}>Play</button>
-            <button onClick={stopAudio}>Stop</button> */}
-        </>}
-        <h3 style={{ color: 'white' }}>Audio Section:</h3>
-        <div id='audios'>
-            <h4 style={{ color: 'white' }}>Volume 1:</h4>
-            <input id="slide" type="range" min="0" max="1" step="0.1" value={volume}
-                onChange={changeVolume}></input>
-            <h4 style={{ color: 'white' }}>Volume 2:</h4>
-            <input id="slide" type="range" min="0" max="1" step="0.1" value={volume2}
-                onChange={changeVolume2}></input>
-            <button onClick={playAudios}>Play Audio</button>
-            <button onClick={stopAudio}>Pause Audio</button>
-        </div>
-    </>
+        </>
     );
 };
 

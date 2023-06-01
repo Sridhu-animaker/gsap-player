@@ -31,11 +31,19 @@ button {
     margin: 20px;
 }
 
-#myVideo {
+.myVideo {
     width: 800px;
     height: 480px;
     position: absolute;
     opacity: 0;
+}
+
+#myVideo-1 {
+    height: 100px;
+    width: 200px;
+    left: -10px;
+    bottom: 183px;
+    z-index: 3;
 }
 
 .para1 {
