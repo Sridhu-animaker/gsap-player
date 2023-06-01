@@ -56,6 +56,8 @@ const PlayerComponent = () => {
                 document.getElementById('myVideo').currentTime = 0;
                 document.getElementById('myVideo-1').pause();
                 document.getElementById('myVideo-1').currentTime = 0;
+                document.getElementById('0').pause();
+                document.getElementById('1').pause();
             })
         );
 
@@ -84,12 +86,18 @@ const PlayerComponent = () => {
         if (speed == 1) {
             setSpeed(1.5);
             tween.timeScale(1.5);
+            document.getElementById('myVideo').playbackRate = 1.5;
+            document.getElementById('myVideo-1').playbackRate = 1.5;
         } else if (speed == 1.5) {
             setSpeed(2);
             tween.timeScale(2);
+            document.getElementById('myVideo').playbackRate = 2;
+            document.getElementById('myVideo-1').playbackRate = 2;
         } else if (speed == 2) {
             setSpeed(1);
             tween.timeScale(1);
+            document.getElementById('myVideo').playbackRate = 1;
+            document.getElementById('myVideo-1').playbackRate = 1;
         }
 
     }
@@ -107,15 +115,31 @@ const PlayerComponent = () => {
 
     }
 
+    const reverse = () => {
+        tween.reverse()
+        let video = document.getElementById('myVideo');
+        let video2 = document.getElementById('myVideo-1');
+        const duration = video.currentTime;
+        const duration2 = video2.currentTime;
+        gsap.to(video, { duration: duration, currentTime: 0 });
+        gsap.to(video2, { duration: duration2, currentTime: 0 });
+        video.pause();
+        video2.pause();
+    }
+
     const resetSettings = () => {
         setSpeed(1);
         setRewindSpeed(-1);
         if (tween) {
             tween.progress(0);
             tween.timeScale(1);
+            // To reset the audio
+            document.getElementById('0').currentTime = 0;
+            document.getElementById('1').currentTime = 0;
+            document.getElementById('myVideo').currentTime = 0;
+            document.getElementById('myVideo-1').currentTime = 0;
         }
-        document.getElementById('myVideo').currentTime = 0;
-        document.getElementById('myVideo-1').currentTime = 0;
+
     }
 
     const playAudios = () => {
@@ -166,7 +190,7 @@ const PlayerComponent = () => {
     return (
         <>
             <div className="gallery">
-                <video id='myVideo' className='myVideo' src='https://www.w3schools.com/html/mov_bbb.mp4' autoPlay loop />
+                <video id='myVideo' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' autoPlay loop />
                 <video id='myVideo-1' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' autoPlay loop />
                 <p className='para para1'>Welcome!</p>
                 <img className='img-video' src='https://assets.codepen.io/32887/beach-gallery-lighthouse.jpg' />
@@ -198,7 +222,7 @@ const PlayerComponent = () => {
             <button onClick={() => { init(); playAudios(); }}>Start Video</button>
             {tween && <>
                 <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
-                <button onClick={() => tween.reverse()}>Reverse</button>
+                <button onClick={reverse}>Reverse</button>
                 <button onClick={fastForward}>Forward {speed}x {speed > 1 && '>>'}</button>
                 <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button>
                 <button onClick={resetSettings}>Reset</button>
