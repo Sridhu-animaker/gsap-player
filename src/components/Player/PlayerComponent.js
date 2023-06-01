@@ -190,8 +190,8 @@ const PlayerComponent = () => {
     return (
         <>
             <div className="gallery">
-                <video id='myVideo' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' autoPlay loop />
-                <video id='myVideo-1' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' autoPlay loop />
+                <video id='myVideo' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' />
+                <video id='myVideo-1' className='myVideo' src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' />
                 <p className='para para1'>Welcome!</p>
                 <img className='img-video' src='https://assets.codepen.io/32887/beach-gallery-lighthouse.jpg' />
                 <div className='img-wrapper'>
