@@ -224,7 +224,7 @@ const PlayerComponent = () => {
                 <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
                 <button onClick={reverse}>Reverse</button>
                 <button onClick={fastForward}>Forward {speed}x {speed > 1 && '>>'}</button>
-                <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button>
+                {/* <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button> */}
                 <button onClick={resetSettings}>Reset</button>
             </>}
             <h3 style={{ color: 'white' }}>Audio Section:</h3>
