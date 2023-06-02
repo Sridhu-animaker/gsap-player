@@ -10,18 +10,18 @@ const PlayerComponent = () => {
     const [speed, setSpeed] = useState(1);
     const [rewindSpeed, setRewindSpeed] = useState(-1);
     const [isPause, setIsPause] = useState(false);
-    const [volume, setVolume] = useState(10);
-    const [volume2, setVolume2] = useState(10);
-    // const [volume3, setVolume3] = useState(10);
+    const [volume, setVolume] = useState(1);
+    const [volume2, setVolume2] = useState(1);
+    const [videoVolume, setVideoVolume] = useState(1);
     const audioCtx = new AudioContext();
     // audioCtx.suspend();
 
     function init() {
         resetSettings();
         const video = document.getElementById('myVideo');
-        const video1 = document.getElementById('myVideo-1');
+        const video2 = document.getElementById('myVideo-1');
         video.play();
-        video1.play();
+        video2.play();
         let tl = gsap.timeline();
         gsap.set(".gallery", { visibility: 'visible' })
         setTween(tl.to('#myVideo', { opacity: 1, duration: 10 })
@@ -102,17 +102,29 @@ const PlayerComponent = () => {
 
     }
     const fastRewind = () => {
+        let video = document.getElementById('myVideo');
+        let video2 = document.getElementById('myVideo-1');
+        const duration = video.currentTime;
+        const duration2 = video2.currentTime;
         if (rewindSpeed == -1) {
             setRewindSpeed(-1.5);
             tween.timeScale(-1.5);
+            gsap.to(video, { duration: duration / 1.5, currentTime: 0 });
+            gsap.to(video2, { duration: duration2 / 1.5, currentTime: 0 });
         } else if (rewindSpeed == -1.5) {
             setRewindSpeed(-2);
             tween.timeScale(-2);
+            gsap.to(video, { duration: duration / 2, currentTime: 0 });
+            gsap.to(video2, { duration: duration2 / 2, currentTime: 0 });
         } else if (rewindSpeed == -2) {
             setRewindSpeed(-1);
             tween.timeScale(-1);
+            gsap.to(video, { duration: duration, currentTime: 0 });
+            gsap.to(video2, { duration: duration2, currentTime: 0 });
         }
-
+        video.pause();
+        video2.pause();
+        setIsPause(true);
     }
 
     const reverse = () => {
@@ -125,6 +137,7 @@ const PlayerComponent = () => {
         gsap.to(video2, { duration: duration2, currentTime: 0 });
         video.pause();
         video2.pause();
+        setIsPause(true);
     }
 
     const resetSettings = () => {
@@ -187,6 +200,12 @@ const PlayerComponent = () => {
         document.getElementById('1').volume = e.target.value;
     }
 
+    const changeVideoVolume = (e) => {
+        setVideoVolume(e.target.value);
+        document.getElementById('myVideo').volume = e.target.value;
+        document.getElementById('myVideo-1').volume = e.target.value;
+    }
+
     return (
         <>
             <div className="gallery">
@@ -220,11 +239,13 @@ const PlayerComponent = () => {
                 </div>
             </div>
             <button onClick={() => { init(); playAudios(); }}>Start Video</button>
+            <input id="slide" type="range" min="0" max="1" step="0.1" value={videoVolume}
+                onChange={changeVideoVolume}></input>
             {tween && <>
                 <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
                 <button onClick={reverse}>Reverse</button>
                 <button onClick={fastForward}>Forward {speed}x {speed > 1 && '>>'}</button>
-                {/* <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button> */}
+                <button onClick={fastRewind}>Rewind {Math.abs(rewindSpeed)}x {rewindSpeed > 1 && '<<'}</button>
                 <button onClick={resetSettings}>Reset</button>
             </>}
             <h3 style={{ color: 'white' }}>Audio Section:</h3>
