@@ -33,7 +33,7 @@ const PlayerComponent = () => {
             .to('.img-wrapper p', { xPercent: 160, bottom: 144, opacity: 1 }, '-=3')
             .to('.img-wrapper p', { xPercent: 0, opacity: 0 })
 
-            .to('#myVideo', { duration: 2, height: '200px', width: '400px', zIndex: 2, bottom: '182px', left: '-18px' }, '-=5')
+            .to('#myVideo', { duration: 2, height: '200px', width: '400px', zIndex: 2, bottom: '182px', left: '-21px' }, '-=5')
             .to('.img-wrapper1 img', { opacity: 1, duration: 5, ease: 'slow' })
             .to('.img-wrapper1 p', { xPercent: 160, bottom: 144, opacity: 1 }, '-=3')
             .to('.img-wrapper1 p', { xPercent: 0, opacity: 0 })
@@ -240,8 +240,8 @@ const PlayerComponent = () => {
                 </div>
             </div>
             <button onClick={() => { init(); playAudios(); }}>Start Video</button>
-            <img className='sound-icon vertical' src={audioIcon} height='20px' width='20px'/>
-            <input className='vertical' id="slide" type="range" min="0" max="1" step="0.1" value={videoVolume}
+            <img className='sound-icon v-middle' src={audioIcon} height='20px' width='20px'/>
+            <input className='v-middle w-100' id="slide" type="range" min="0" max="1" step="0.1" value={videoVolume}
                 onChange={changeVideoVolume}></input>
             {tween && <>
                 <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
