@@ -49,3 +49,14 @@ button {
 .para1 {
     bottom: 144px;
 }
+
+.sound-icon {
+    height: 25px;
+    width: 25px;
+    opacity: 1;
+    position: relative;
+}
+
+.vertical {
+    vertical-align: middle;
+}

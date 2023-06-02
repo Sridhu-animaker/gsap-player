@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Player.css'
 import { gsap } from 'gsap';
+import audioIcon from '../../Assets/sound.png';
 
 const PlayerComponent = () => {
     // const urls = ['../../Assets/sample-3s.mp3', '../../Assets/sample-9s.mp3', '../../Assets/sample-12s.mp3', '../../Assets/sample-15s.mp3']
@@ -239,7 +240,8 @@ const PlayerComponent = () => {
                 </div>
             </div>
             <button onClick={() => { init(); playAudios(); }}>Start Video</button>
-            <input id="slide" type="range" min="0" max="1" step="0.1" value={videoVolume}
+            <img className='sound-icon vertical' src={audioIcon} height='20px' width='20px'/>
+            <input className='vertical' id="slide" type="range" min="0" max="1" step="0.1" value={videoVolume}
                 onChange={changeVideoVolume}></input>
             {tween && <>
                 <button onClick={pausePlay}>{isPause ? 'Play' : 'Pause'}</button>
